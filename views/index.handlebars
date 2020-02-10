@@ -1,1 +1,14 @@
 <p>Test</p>
+
+<ul class="results">
+    {{#each results}}
+        <li class="article-title">
+            {{title}}
+            <ul>
+                <li class="article-description">
+                    {{description}}
+                </li>
+            </ul>
+        </li>
+    {{/each}}
+</ul>

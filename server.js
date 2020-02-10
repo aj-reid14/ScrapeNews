@@ -31,7 +31,11 @@ app.get("/", function(req, res) {
             scrapeResults.push(result);
         });
 
-        res.send(scrapeResults);
+        const hbsObject = {
+            results: scrapeResults
+        }
+
+        res.render("index", hbsObject);
         
     });
     
