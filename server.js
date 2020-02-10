@@ -17,7 +17,24 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.get("/", function(req, res) {
-    res.render("index");
+
+    let scrapeResults = [];
+
+    axios.get("https://theconversation.com/us/topics/gaming-1806").then(function(response) {
+        let $ = cheerio.load(response.data);
+        
+        $("article").each(function(i, element) {
+            let result = {};
+            result.title = $(element).find("header div.article--header h2 a").text();
+            result.description = $(element).find("div.content span").text();
+
+            scrapeResults.push(result);
+        });
+
+        res.send(scrapeResults);
+        
+    });
+    
 })
 
 app.listen(PORT, function() {
