@@ -26,9 +26,26 @@ app.get("/clear", function(req, res) {
     .catch(function(err) {
         console.log(err);
     });
+
+    res.send("DB Cleared");
 });
 
 app.get("/", function(req, res) {
+    db.Article.find({})
+    .lean()
+    .then(function(dbResult) {
+        const hbsObject = {
+            results: dbResult
+        }
+        console.log(hbsObject);
+        res.render("index", hbsObject);
+    })
+    .catch(function(err) {
+        res.json(err);
+    });
+})
+
+app.get("/scrape", function(req, res) {
 
     let scrapeResults = [];
 
@@ -51,18 +68,10 @@ app.get("/", function(req, res) {
             scrapeResults.push(result);
         });
 
-        db.Article.find({})
-        .lean()
-        .then(function(dbResult) {
-            const hbsObject = {
-                results: dbResult
-            }
-            console.log(hbsObject);
-            res.render("index", hbsObject);
-        })
-        .catch(function(err) {
-            res.json(err);
-        });
+        
+    
+        window.location.replace("/");
+        res.send("Articles Scraped");
 
         // const hbsObject = {
         //     results: scrapeResults
