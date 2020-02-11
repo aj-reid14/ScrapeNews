@@ -6,7 +6,7 @@ let ArticleSchema = new Schema({
         type: String,
         required: true
     },
-    link: {
+    description: {
         type: String,
         required: true
     },

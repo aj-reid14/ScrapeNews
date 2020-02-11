@@ -6,6 +6,8 @@ let cheerio = require("cheerio");
 
 let PORT = 3000;
 
+let db = require("./models");
+
 let app = express();
 
 app.use(express.static("public"));
@@ -15,6 +17,16 @@ app.use(express.json());
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+app.get("/clear", function(req, res) {
+    db.Article.remove({})
+    .catch(function(err) {
+        console.log(err);
+    });
+});
 
 app.get("/", function(req, res) {
 
@@ -28,14 +40,36 @@ app.get("/", function(req, res) {
             result.title = $(element).find("header div.article--header h2 a").text();
             result.description = $(element).find("div.content span").text();
 
+            db.Article.create(result)
+            .then(function(dbArticle) {
+                // console.log(dbArticle);
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
+
             scrapeResults.push(result);
         });
 
-        const hbsObject = {
-            results: scrapeResults
-        }
+        db.Article.find({})
+        .lean()
+        .then(function(dbResult) {
+            const hbsObject = {
+                results: dbResult
+            }
+            console.log(hbsObject);
+            res.render("index", hbsObject);
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
 
-        res.render("index", hbsObject);
+        // const hbsObject = {
+        //     results: scrapeResults
+        // }
+
+        // console.log(hbsObject);
+        // res.render("index", hbsObject);
         
     });
     
