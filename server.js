@@ -4,7 +4,7 @@ let mongoose = require("mongoose");
 let axios = require("axios");
 let cheerio = require("cheerio");
 
-let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 
 let db = require("./models");
 
