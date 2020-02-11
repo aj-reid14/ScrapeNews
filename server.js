@@ -37,7 +37,6 @@ app.get("/", function(req, res) {
         const hbsObject = {
             results: dbResult
         }
-        console.log(hbsObject);
         res.render("index", hbsObject);
     })
     .catch(function(err) {
@@ -55,6 +54,7 @@ app.get("/scrape", function(req, res) {
         $("article").each(function(i, element) {
             let result = {};
             result.title = $(element).find("header div.article--header h2 a").text();
+            result.link = "https://theconversation.com/" + $(element).find("header div.article--header h2 a").attr("href");
             result.description = $(element).find("div.content span").text();
 
             db.Article.create(result)
@@ -66,12 +66,10 @@ app.get("/scrape", function(req, res) {
             });
 
             scrapeResults.push(result);
-        });
-
-        
+        });        
     
-        window.location.replace("/");
         res.send("Articles Scraped");
+        location.reload();
 
         // const hbsObject = {
         //     results: scrapeResults
