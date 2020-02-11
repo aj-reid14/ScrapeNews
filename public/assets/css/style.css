@@ -3,6 +3,10 @@ body {
     font-family: 'Changa', sans-serif;
 }
 
+h1 {
+    text-align: center;
+}
+
 ul {
     text-align: left;
     list-style-position: inside;

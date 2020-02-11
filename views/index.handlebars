@@ -1,14 +1,21 @@
-<p>Test</p>
+<div class="container">
+    <div class="row">
+        <h1>Scrape News!</h1>
 
-<ul class="results">
-    {{#each results}}
-        <li class="article-title">
-            {{title}}
-            <ul>
-                <li class="article-description">
-                    {{description}}
-                </li>
-            </ul>
-        </li>
-    {{/each}}
-</ul>
+        <ul class="results">
+            {{#each results}}
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{title}}</h5>
+                    <p class="card-text">{{description}}</p>
+                    <a href="#" class="card-link">Add Note</a>
+                    <a href="#" class="card-link">View Note</a>
+                </div>
+            </div>
+
+            {{/each}}
+        </ul>
+
+    </div>
+</div>
