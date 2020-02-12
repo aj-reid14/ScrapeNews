@@ -24,3 +24,9 @@ ul {
 .note-body {
     background-color: rgb(144, 238, 218);
 }
+
+.add-note, .view-note {
+    color: darkblue;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
