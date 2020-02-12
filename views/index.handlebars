@@ -9,8 +9,21 @@
                 <div class="card-body">
                     <a class="card-title" href={{link}} target="_blank">{{title}}</a>
                     <p class="card-text">{{description}}</p>
-                    <a href="#" class="card-link">Add Note</a>
-                    <a href="#" class="card-link">View Note</a>
+
+                    {{!-- Add Note --}}
+                    <a href="#" class="card-link add-note">Add Note</a>
+                    
+                    {{!-- View Note --}}
+                    <a class="card-link view-note" data-toggle="collapse" href="#note-{{_id}}" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        View Note
+                    </a>
+
+                    <div class="collapse" id="note-{{_id}}">
+                        <div class="card card-body note-body">
+                            Test Note tho
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -21,5 +34,5 @@
 </div>
 
 <script>
-    
+
 </script>

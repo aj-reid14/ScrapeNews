@@ -6,10 +6,10 @@ A simple application that displays some articles from this [website](https://the
 ## Routes
 
 ### "/scrape"
-Scrapes new articles from website
+Scrapes new articles from website & adds to database.
 
 ### "/clear"
-Removes all articles from page (and database)
+Removes all articles from page (and database).
 
 ### "/"
-Shows all articles in the database
+Retrieves all articles from database and displays them on the page.
