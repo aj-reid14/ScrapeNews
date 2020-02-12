@@ -19,7 +19,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false });
 
 app.get("/clear", function(req, res) {
     db.Article.remove({})
@@ -42,6 +42,22 @@ app.get("/", function(req, res) {
     .catch(function(err) {
         res.json(err);
     });
+})
+
+app.get("/article/:id", function(req, res) {
+    db.Article.findOne({ _id: req.params.id })
+    .populate("note")
+    .lean()
+    .then(function(dbArticle) {
+        res.json(dbArticle);
+    })
+})
+
+app.post("/article/:id", function(req, res) {
+    db.Note.create(req.body)
+    .then(function(dbNote) {
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, {new: true })
+    })
 })
 
 app.get("/scrape", function(req, res) {
