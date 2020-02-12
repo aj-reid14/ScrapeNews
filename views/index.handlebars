@@ -10,18 +10,28 @@
                     <a class="card-title" href={{link}} target="_blank">{{title}}</a>
                     <p class="card-text">{{description}}</p>
 
-                    {{!-- Add Note --}}
-                    <a href="#" class="card-link add-note">Add Note</a>
-                    
-                    {{!-- View Note --}}
-                    <a class="card-link view-note" data-toggle="collapse" href="#note-{{_id}}" role="button"
+                    {{!-- Add Note (Link) --}}
+                    <a class="card-link add-note" data-toggle="collapse" href="#noteadd-{{_id}}" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Add Note
+                    </a>
+
+                    {{!-- View Note (Link) --}}
+                    <a class="card-link view-note" data-toggle="collapse" href="#noteview-{{_id}}" role="button"
                         aria-expanded="false" aria-controls="collapseExample">
                         View Note
                     </a>
 
-                    <div class="collapse" id="note-{{_id}}">
+                    {{!-- Add Note (Display) --}}
+                    <div class="collapse" id="noteadd-{{_id}}">
+                        <textarea class="form-control" id="notetext-{{_id}}"></textarea>
+                        <button type="button" class="btn btn-success btn-sm save-note" data-toggle="collapse" href="#noteadd-{{_id}}">Save</button>
+                    </div>
+
+                    {{!-- View Note (Display) --}}
+                    <div class="collapse" id="noteview-{{_id}}">
                         <div class="card card-body note-body">
-                            Test Note tho
+                            Add a note!
                         </div>
                     </div>
                 </div>
